@@ -770,6 +770,7 @@ code {
 <li>Preventing double or recursive script loads</li>
 <li>Automatically controlling the cache GET variable</li>
 <li>Optionally minifying and concatenating scripts</li>
+<li>A uniform module style + dependency injection means unit tests are possible</li>
 </ul>
 
   </section>
@@ -787,8 +788,8 @@ code {
     ;
 
     <span class="keyword">var</span> id = UserTools.locateCustomerId();
-    <span class="keyword">var</span> customerName = JSON.parse(getNameFromId(id));
-    setPageConstant(<span class="string">"name"</span>, customerName); <span class="comment">// defined in dependency2.js</span>
+    <span class="keyword">var</span> customerName = JSON.parse(UserTools.getNameFromId(id));
+    PageTools.setPageConstant(<span class="string">"name"</span>, customerName); <span class="comment">// defined in dependency2.js</span>
 });</code></pre>
 
   </section>

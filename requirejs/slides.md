@@ -1,7 +1,7 @@
 title: Require JS
 author:
 	name: Michael Grenier
-output: slides.html
+output: index.html
 theme: sudodoki/reveal-cleaver-theme
 
 --
