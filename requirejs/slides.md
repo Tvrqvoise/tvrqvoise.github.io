@@ -61,20 +61,32 @@ RequireJS fixes this by:
 ---
 
 ### AMD Syntax
+
 ```javascript
 require([
 	'require',
-	'jquery',
 	'dependency1',
 	'dependency2'
 ], function(require){
-	var $ = require("jquery")
-		, UserTools = require('dependency1')
+	var   UserTools = require('dependency1')
 		, PageTools = require('dependency2')
 	;
 
 	var id = UserTools.locateCustomerId();
 	var customerName = JSON.parse(UserTools.getNameFromId(id));
 	PageTools.setPageConstant("name", customerName); // defined in dependency2.js
+});
+```
+
+```javascript
+require([
+	'require',
+	'dependency2'
+], function(require){
+	//  `dependency` is only loaded once, but used twice...
+		no overwriting of global variables!
+	var PageTools = require('dependency2');
+
+	PageTools.setPageConstant("for", "bar");
 });
 ```
