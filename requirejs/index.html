@@ -778,18 +778,26 @@ code {
     <h3 id="amd-syntax">AMD Syntax</h3>
 <pre><code class="lang-javascript">require([
     <span class="string">'require'</span>,
-    <span class="string">'jquery'</span>,
     <span class="string">'dependency1'</span>,
     <span class="string">'dependency2'</span>
 ], <span class="keyword">function</span>(require){
-    <span class="keyword">var</span> $ = require(<span class="string">"jquery"</span>)
-        , UserTools = require(<span class="string">'dependency1'</span>)
+    <span class="keyword">var</span>   UserTools = require(<span class="string">'dependency1'</span>)
         , PageTools = require(<span class="string">'dependency2'</span>)
     ;
 
     <span class="keyword">var</span> id = UserTools.locateCustomerId();
     <span class="keyword">var</span> customerName = JSON.parse(UserTools.getNameFromId(id));
     PageTools.setPageConstant(<span class="string">"name"</span>, customerName); <span class="comment">// defined in dependency2.js</span>
+});</code></pre>
+<pre><code class="lang-javascript">require([
+    <span class="string">'require'</span>,
+    <span class="string">'dependency2'</span>
+], <span class="keyword">function</span>(require){
+    <span class="comment">//  `dependency` is only loaded once, but used twice...</span>
+        no overwriting of global variables!
+    <span class="keyword">var</span> PageTools = require(<span class="string">'dependency2'</span>);
+
+    PageTools.setPageConstant(<span class="string">"for"</span>, <span class="string">"bar"</span>);
 });</code></pre>
 
   </section>
