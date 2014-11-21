@@ -13,7 +13,6 @@ output: index.html
 
 Problem:
 ### Persistance logic was often happening in the view code
-What this means:
 * Views which read or change the same data would often have different code to do so.
 * Because of this, persistance code was often written to varying levels of performance, robustness, and clarity.
 * A lot of bugs in R2 revolved around this inconsistant behavior.
@@ -28,7 +27,7 @@ What we did to fix this:
 --
 
 This fixed a number of issues on the site:
-* View list page requests were cut by **nearly half**
+* View list page requests were cut by **50%**
 * View list page carousel **more reliably and efficiently** requests products
 * Lists of Lists page **no longer fails** to display more than 25 products
 * Lists of Lists page **shows products** on MDOT
@@ -60,3 +59,17 @@ Why we need this:
 
 Problem:
 ### Some pages had missing features and broken styles
+
+--
+
+<img src="./images/lists-of-lists-new.png" style="width: 48%;float: left;"/>
+<img src="./images/lists-of-lists-old.png" style="width: 48%;float: left;margin-left:2%;"/>
+
+--
+
+<img src="./images/manage-registry-item-new.png" style="width: 100%;float: left;"/>
+<img src="./images/manage-registry-item-bad.png" style="width: 100%;float: left;margin-top:20px;"/>
+
+--
+
+<img src="./images/mdot-list-settings.png" style="width: 50%; margin: 0 auto;margin-left: 25%;"/>
