@@ -55,3 +55,8 @@ Why we need this:
 * Automated tests increase **confidence** about our changes
 * Because we can spend a greater percentage of time building features instead of fixing bugs, we get **better velocity** and **more agility**
 * Automated tests make manual testing more **meaningful** and **in-depth**
+
+--
+
+Problem:
+### Some pages had missing features and broken styles
