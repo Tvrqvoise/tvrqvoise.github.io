@@ -62,14 +62,27 @@ Problem:
 
 --
 
+Lists of lists page has improved alignment and is more complete
+
 <img src="./images/lists-of-lists-new.png" style="width: 48%;float: left;"/>
 <img src="./images/lists-of-lists-old.png" style="width: 48%;float: left;margin-left:2%;"/>
 
 --
+
+Manage lists page has more correct styling
 
 <img src="./images/manage-registry-item-new.png" style="width: 100%;float: left;"/>
 <img src="./images/manage-registry-item-bad.png" style="width: 100%;float: left;margin-top:20px;"/>
 
 --
 
+MDOT view has settings drawer
+
 <img src="./images/mdot-list-settings.png" style="width: 50%; margin: 0 auto;margin-left: 25%;"/>
+
+--
+
+Tooltips are now shown correctly for tablet devices:
+
+<img src="./images/ipad-top.png" style="width: 100%;float: left;"/>
+<img src="./images/ipad-top-bad.png" style="width: 100%;float: left;margin-top:20px;"/>
