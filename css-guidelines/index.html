@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <title>Life Events Refactor</title>
+  <title>CSS Guidelines</title>
   <style type="text/css">
     body {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -401,96 +401,51 @@ pre .chunk {
   </div>
 
   <div class="slide" id="slide-1">
-    <section class="slide-content"><h1 id="life-events-refactor">Life Events Refactor</h1>
+    <section class="slide-content"><h1 id="css-less-guidelines">CSS &amp; LESS Guidelines</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-2">
-    <section class="slide-content"><p>Problem:</p>
-<h3 id="persistance-logic-was-often-happening-in-the-view-code">Persistance logic was often happening in the view code</h3>
-<ul>
-<li>Views which read or change the same data would often have different code to do so.</li>
-<li>Because of this, persistance code was often written to varying levels of performance, robustness, and clarity.</li>
-<li>A lot of bugs in R2 revolved around this inconsistant behavior.</li>
-</ul>
+    <section class="slide-content"><h1 id="semantic-naming-patterns">Semantic Naming Patterns</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-3">
-    <section class="slide-content"><p>What we did to fix this:</p>
-<ul>
-<li>All methods which communicate with a server were moved to the model layer</li>
-<li>Models which handled similar responsibilities were merged</li>
-<li>Validation is always performed by the model</li>
-</ul>
+    <section class="slide-content"><h1 id="low-specificity">Low Specificity</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-4">
-    <section class="slide-content"><p>This fixed a number of issues on the site:</p>
-<ul>
-<li>View list page requests were cut by <strong>50%</strong></li>
-<li>View list page carousel <strong>more reliably and efficiently</strong> requests products</li>
-<li>Lists of Lists page <strong>no longer fails</strong> to display more than 25 products</li>
-<li>Lists of Lists page <strong>shows products</strong> on MDOT</li>
-</ul>
+    <section class="slide-content"><h1 id="_never_-use-ids-tagname-selectors-or-important-use-classes-instead-"><em>Never</em> use IDs, tagname selectors, or !important.  Use classes instead.</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-5">
-    <section class="slide-content"><h3 id="very-few-unit-tests">Very few unit tests</h3>
-<p>Why this is bad:</p>
-<ul>
-<li>During R2, we saw many instances where a fix to one issue would break another.</li>
-<li>Issues were often not found until they had been in QA for several days, forcing us to make last-minute releases</li>
-<li><em>&quot;Unit tests are the best documentation&quot;</em> Because there was no implimentation reference for modules, it was hard to tell if certain behavior was <strong>intentional</strong> or <strong>broken</strong></li>
-</ul>
+    <section class="slide-content"><h1 id="use-less-language-features-sparingly">Use LESS language features sparingly</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-6">
-    <section class="slide-content"><p>How we fixed this:</p>
-<ul>
-<li>We wrote unit tests!</li>
-<li>We started with <strong>37</strong> lines of code testing <strong>1</strong> assertion about <strong>1</strong> component</li>
-<li>We now have <strong>1041</strong> lines of code testing <strong>43</strong> assertions about <strong>9</strong> components</li>
-<li>We&#39;re still writing unit tests -- this is a good start, but we&#39;re still a long way from the full coverage we need</li>
+    <section class="slide-content"><ul>
+<li><strong>ALWAYS BE CONSCIOUS</strong> of your generated CSS. Preprocessors can generate mountains of redundant and ugly styles, if you let them.</li>
+<li>Use tag nesting <strong>SPARINGLY</strong>. Nesting makes it hard to tell where code reuse can be, and can easily lead to gross stuff like: .my-element ui &gt; li.my-child.</li>
+<li><strong>WATCH OUT</strong> for non-parametric mixins such as .foo { .bar; }. The generated CSS can have a lot of redundant code. Consider using .extend() or plain ol&#39; CSS comma separated selectors instead.</li>
+<li><strong>PREFER</strong> reference imports to normal imports. There&#39;s no need to copy an entire LESS file into your generated CSS if you just want to mixin a few of its classes.</li>
 </ul>
 </section>
   </div>
   <div class="slide hidden" id="slide-7">
-    <section class="slide-content"><p>Why we need this:</p>
-<ul>
-<li>Automated tests increase <strong>confidence</strong> about our changes</li>
-<li>Because we can spend a greater percentage of time building features instead of fixing bugs, we get <strong>better velocity</strong> and <strong>more agility</strong></li>
-<li>Automated tests make manual testing more <strong>meaningful</strong> and <strong>in-depth</strong></li>
-</ul>
+    <section class="slide-content"><h1 id="use-mixins-for-vendor-prefixed-properties-">Use mixins for vendor-prefixed properties.</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-8">
-    <section class="slide-content"><p>Problem:</p>
-<h3 id="some-pages-had-missing-features-and-broken-styles">Some pages had missing features and broken styles</h3>
+    <section class="slide-content"><h1 id="avoid-magic-numbers-use-variables-instead-">Avoid magic numbers; use variables instead.</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-9">
-    <section class="slide-content"><p>Lists of lists page has improved alignment and is more complete</p>
-<p><img src="./images/lists-of-lists-new.png" style="width: 48%;float: left;"/>
-<img src="./images/lists-of-lists-old.png" style="width: 48%;float: left;margin-left:2%;"/></p>
+    <section class="slide-content"><h1 id="break-a-rule-leave-a-comment-">Break a rule, leave a comment.</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-10">
-    <section class="slide-content"><p>Manage lists page has more correct styling</p>
-<p><img src="./images/manage-registry-item-new.png" style="width: 100%;float: left;"/>
-<img src="./images/manage-registry-item-bad.png" style="width: 100%;float: left;margin-top:20px;"/></p>
+    <section class="slide-content"><h1 id="animations">Animations</h1>
 </section>
   </div>
   <div class="slide hidden" id="slide-11">
-    <section class="slide-content"><p>MDOT view has settings drawer</p>
-<p><img src="./images/mdot-list-settings.png" style="width: 50%; margin: 0 auto;margin-left: 25%;"/></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-12">
-    <section class="slide-content"><p>Tooltips are now shown correctly for tablet devices:</p>
-<p><img src="./images/ipad-top.png" style="width: 100%;float: left;"/>
-<img src="./images/ipad-top-bad.png" style="width: 100%;float: left;margin-top:20px;"/></p>
-</section>
-  </div>
-  <div class="slide hidden" id="slide-13">
     <section class="slide-content"><div class="author">
   <h1 class="name">Michael.Grenier</h1>
     <h3 class="email">
