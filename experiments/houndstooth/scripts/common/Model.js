@@ -56,9 +56,9 @@ export default class Model {
 
     save () {
         //  Mocking out a server interaction here. Ideally, this'd be XHR
-        return Promise((resolve, reject)=>{
+        return new Promise((resolve, reject)=>{
             setTimeout(()=>{
-                resolve();
+                resolve({});
             }, 1000);
         }).then(()=>{
             //  TODO: Implement observer system instead of this junk

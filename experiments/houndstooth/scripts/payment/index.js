@@ -28,10 +28,8 @@ import MainView from './views/MainView';
 
 !(function(){
 
-    var main = new MainView({ });
-
     //  WARN: Adding window property for debug ONLY
-    window.main = main;
+    var main = window.main = new MainView({ });
 
     main.render();
 

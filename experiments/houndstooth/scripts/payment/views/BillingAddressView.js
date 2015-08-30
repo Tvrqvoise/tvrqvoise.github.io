@@ -48,6 +48,7 @@ export default class BillingAddressView extends FormView {
         
         if (isEmpty(errors)) {
             this.$('button')[0].innerHTML = '<i class="fa fa-cog fa-spin"></i>';
+            this.model.save();
         } else {
             this.$('.input-group--invalid input')[0].focus();
         }

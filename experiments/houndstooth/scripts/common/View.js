@@ -94,6 +94,7 @@ export default class View {
 
     destroy () {
         this.unbindDOMEvents();
+        this.el.remove();
 
         each(this.regions, (view)=>{
             view.destroy();

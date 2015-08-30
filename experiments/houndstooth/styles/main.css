@@ -4,6 +4,11 @@
     box-sizing: border-box;
 }
 
+html {
+    height: 100%;
+    background-color: #F9F9F9;
+}
+
 body {
     font-family: 'Open Sans', sans-serif;
     color: #333;
@@ -135,10 +140,18 @@ h2 {
     -webkit-transform: rotateX(180deg);
     transform: rotateX(180deg);
 }
+
 .input-group--invalid .input-group__error {
     visibility: visible;
     -webkit-transform: rotateX(0deg);
     transform: rotateX(0deg);
+}
+
+.input-group__icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -0.5em;
 }
 
 /**
@@ -199,10 +212,38 @@ h2 {
 }
 
 /**
- * BILLING
+ * PAGES
  */
 
-.billing-address {
+.billing-address,
+.credit-card {
     overflow: hidden;
     padding: 20px;
+    background-color: #FFF;
+}
+
+/**
+ * CREDIT_CARD
+ */
+
+.input-group.input-group--month,
+.input-group.input-group--year,
+.input-group.input-group--cvv {
+    float: left;
+    width: 30%;
+    margin-top: 0;
+    margin-left: 5%;
+}
+
+.input-group.input-group--month {
+    margin-left: 0;
+}
+
+.input-group--card-number {
+    margin-bottom: 20px;
+}
+
+.button--pay:before {
+    background-color: rgba(125, 225, 125, 1);
+
 }
