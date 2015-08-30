@@ -1,0 +1,249 @@
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    background-color: #F9F9F9;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+}
+
+button {
+    font-family: inherit;
+}
+
+h2 {
+    font-weight: 100;
+    font-size: 1.4;
+    margin-bottom: 1em;
+}
+
+/**
+ *  UTILITY
+ */
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+    clear: both;
+}
+
+
+/**
+ *  MAIN
+ */
+.main-view {
+    width: 100%;
+    max-width: 300px;
+    margin: 50px auto 0;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 10px 10px 0px 0px rgba(240,240,240,1);
+}
+
+.main-view:after {
+    content: '';
+    display: table;
+    width: 0;
+    height: 0;
+}
+
+/**
+ *  INPUTS
+ */
+.input-group {
+    display: block;
+    position: relative;
+    padding: 0.25em 0.5em;
+}
+
+.input-group + .input-group {
+    margin-top: 1.5em;
+}
+
+.input-group:before {
+    content: '';
+    background-color: rgba(0,0,0,0.05);
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+    transform-origin: 0 100%;
+    -webkit-transition: -webkit-transform 200ms ease-out, background-color 500ms ease-out;
+    transition: transform 200ms ease-out, background-color 500ms ease-out;
+}
+
+.input-group__label {
+    position: absolute;
+    line-height: 1em;
+    bottom: 0.4em;
+    font-size: 0.9em;
+    font-weight: 100;
+    opacity: 1;
+    pointer-events: none;
+    -webkit-transition: -webkit-transform;
+    transition: transform 300ms ease-out, opacity 300ms ease-out, visibility 300ms;
+}
+
+.input-group input {
+    width: 100%;
+    border: 0px none transparent;
+    background-color: transparent;
+    font-weight: bold;
+}
+
+.input-group input:focus {
+    outline: 0px none transparent;
+}
+
+.input-group--open .input-group__label {
+    visibility: hidden;
+    opacity: 0;
+    -webkit-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    transform: translate(50%, 0);
+}
+
+.input-group--valid:before {
+    background-color: rgba(125, 225, 125, 1);
+}
+
+.input-group--open:before {
+    -webkit-transform: scaleY(0.1);
+    transform: scaleY(0.1);
+}
+
+.input-group--invalid:before {
+    background-color: rgba(255, 125, 125, 1);
+}
+
+.input-group__error {
+    position: absolute;
+    font-size: 13px;
+    top: 100%;
+    right: 0;
+    color: rgba(255, 125, 125, 1);
+    visibility: hidden;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    transform-origin: 0 0;
+    perspective: 100px;
+    -webkit-transition: -webkit-transform 250ms ease-out, visibility 250ms;
+    transition: transform 250ms ease-out, visibility 250ms;
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg);
+}
+
+.input-group--invalid .input-group__error {
+    visibility: visible;
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+
+.input-group__icon {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -0.5em;
+}
+
+/**
+ *  BUTTONS
+ */
+.button {
+    position: relative;
+    border: 0px solid transparent;
+    background-color: transparent;
+    color: white;
+    font-weight: 700;
+    padding: 0.5em 2em;
+    float: right;
+    margin-top: 1.5em;   
+    cursor: pointer;
+    opacity: 0.4;
+    z-index: 5;
+    -webkit-transition: opacity 250ms ease-out, color 150ms ease-out;
+    transition: opacity 250ms ease-out, color 150ms ease-out;
+}
+
+.button .fa {
+    font-size: 1.5em;
+    margin-top: -.5em;
+    position: relative;
+    top: 0.1em;
+}
+
+.button:before {
+    content: "";
+    display: block;
+    background-color: rgba(25, 25, 255, 1);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transition: transform 400ms ease-out;
+    transition: transform 400ms ease-out;
+}
+
+.button--cover:before {
+    transform: scale(10, 20);
+}
+
+.button:focus,
+.button--cover,
+.button:hover {
+    outline: 0 none transparent;
+    opacity: 1;
+}
+
+.button--cover {
+    color: rgba(25, 25, 255, 1);
+}
+
+/**
+ * PAGES
+ */
+
+.billing-address,
+.credit-card {
+    overflow: hidden;
+    padding: 20px;
+    background-color: #FFF;
+}
+
+/**
+ * CREDIT_CARD
+ */
+
+.input-group.input-group--month,
+.input-group.input-group--year,
+.input-group.input-group--cvv {
+    float: left;
+    width: 30%;
+    margin-top: 0;
+    margin-left: 5%;
+}
+
+.input-group.input-group--month {
+    margin-left: 0;
+}
+
+.input-group--card-number {
+    margin-bottom: 20px;
+}
+
+.button--pay:before {
+    background-color: rgba(125, 225, 125, 1);
+
+}
