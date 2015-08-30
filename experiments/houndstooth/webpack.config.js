@@ -1,5 +1,5 @@
 module.exports = {
-    entry: "./scripts/payment.js",
+    entry: "./scripts/payment/index.js",
     output: {
         path: __dirname,
         filename: "dist/payment.js"
