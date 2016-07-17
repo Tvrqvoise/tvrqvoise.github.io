@@ -2,7 +2,6 @@ title: Marionette Workshop
 theme: matmuchrapna/cleaver-ribbon
 author:
     name: Michael.Grenier
-    email: Grenier.Michael.R@gmail.com
 output: index.html
 
 --
