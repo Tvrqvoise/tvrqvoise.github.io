@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Get real crispy</title>
+    <style>
+      body {
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      }
+      .uploader {
+        position: absolute;
+        top: -1000px;
+      }
+
+      .page-title {
+        font-family: Rockwell;
+        text-transform: uppercase;
+        font-size: 75px;
+        text-align: center;
+        margin-bottom: 0;
+      }
+
+      /* BUTTONS */
+      .buttons {
+        text-align: center;
+        padding: 50px 0;
+      }
+      .buttons__start,
+      .buttons__stop {
+        color: rgba(0, 0, 0, 0.8);
+        border: 2px solid rgba(0, 0, 0, 0.8);;
+        font-weight: bold;
+        text-transform: uppercase;
+        background-color: rgba(0, 0, 0, 0);
+        padding: 10px 20px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .buttons__stop {
+        color: rgba(220, 0, 0, 1);
+        border-color: rgba(220, 0, 0, 1);
+      }
+      .buttons__start:hover,
+      .buttons__start:active {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: white;
+      }
+      .buttons__stop:hover,
+      .buttons__stop:active {
+        background-color: rgba(220, 0, 0, 1);
+        color: white;
+      }
+      .main--active .buttons__start,
+      .buttons__stop {
+        display: none;
+      }
+      .main--active .buttons__stop {
+        display: inline-block;
+      }
+
+      /* IMAGE SECTION */
+      .user-image {
+        text-align: center;
+      }
+      .user-image__image {
+        display: inline-block;
+        width: auto;
+        height: auto;
+        max-width: 100%;
+      }
+      .user-image__wrapper {
+        position: relative;
+        display: inline-block;
+      }
+      .user-image__count {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 50px;
+        background-color: rgba(255, 255, 255, 0.5);
+        line-height: 1.5em;
+        padding: 0 .25em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container main" id="main">
+      <h1 class="page-title">What&rsquo;s a Jay&nbsp;Peg?</h1>
+      <input type="file" id="uploader" class="uploader">
+      <div class="buttons">
+        <label class="btn btn-lg buttons__start" for="uploader">Make it crispy</label>
+        <button class="btn btn-lg buttons__stop" id="stop-button">Oh God, make it stop</button>
+      </div>
+      <div class="user-image">
+        <div class="user-image__wrapper">
+          <div class="user-image__count" id="count"></div>
+          <img id="image" class="user-image__image" />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener('load', function () {
+        var TICK = 200 // Speed the crispifier runs at
+        var FACTOR = 2 // How crispy each iteration gets, lower is crispier
+        var image = document.getElementById('image');
+        var main = document.getElementById('main');
+        var count = document.getElementById('count')
+        var kill = true
+
+        document.getElementById('stop-button')
+          .addEventListener('click', function () {
+            kill = true
+            main.classList.remove('main--active')
+          })
+
+        document.getElementById('uploader')
+          .addEventListener('change', function (e) {
+            var file = e.target.files[0]
+            var reader = new FileReader()
+
+            if (!file.type.match(/image.*/)) {
+              return alert('Uhhh, I don\'t think that\'s an image.')
+            }
+
+            kill = false
+            main.classList.add('main--active')
+
+            reader.onload = function(e) {
+              var canvas
+              var context
+              var i = 0
+
+              image.addEventListener('load', function (e) {
+                setTimeout(function () {
+                  if (!canvas) {
+                    canvas = document.createElement('canvas')
+                    canvas.width = image.width
+                    canvas.height = image.height
+                    context = canvas.getContext('2d')
+                  }
+
+                  context.drawImage(image, 0, 0)
+
+                  if (!kill) {
+                    count.textContent = ++i
+                    image.src = canvas.toDataURL('image/jpeg', Math.min(Math.random().toFixed(2) * FACTOR, 1))
+                  }
+                }, TICK)
+              })
+
+					    image.src = reader.result;
+            }
+
+            reader.readAsDataURL(file)
+          })
+      })
+    </script>
+  </body>
+</html>
