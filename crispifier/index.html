@@ -120,6 +120,7 @@
             var reader = new FileReader()
 
             if (!file.type.match(/image.*/)) {
+              window.console && console.warn('File type match failed, expected string containing "image", was', file.type)
               return alert('Uhhh, I don\'t think that\'s an image.')
             }
 
