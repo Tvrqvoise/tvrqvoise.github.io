@@ -87,11 +87,11 @@
       <h1 class="page-title">What&rsquo;s a Jay&nbsp;Peg?</h1>
       <input type="file" id="uploader" class="uploader">
       <div class="buttons">
-        <label class="btn btn-lg buttons__start" for="uploader">Make it crispy</label>
-        <button class="btn btn-lg buttons__stop" id="stop-button">Oh God, make it stop</button>
+        <label class="buttons__start" for="uploader">Make it crispy</label>
+        <button class="buttons__stop" id="stop-button">Oh God, make it stop</button>
       </div>
       <div class="user-image">
-        <div class="user-image__wrapper">
+        <div class="user-image__wrapper" id="image-wrapper">
           <div class="user-image__count" id="count"></div>
           <img id="image" class="user-image__image" />
         </div>
@@ -102,10 +102,11 @@
       window.addEventListener('load', function () {
         var TICK = 200 // Speed the crispifier runs at
         var FACTOR = 2 // How crispy each iteration gets, lower is crispier
-        var image = document.getElementById('image');
-        var main = document.getElementById('main');
+
+        var main = document.getElementById('main')
         var count = document.getElementById('count')
         var kill = true
+        var image
 
         document.getElementById('stop-button')
           .addEventListener('click', function () {
@@ -130,6 +131,9 @@
               var context
               var i = 0
 
+              if (image) { image.remove() }
+              image = document.createElement('img')
+              image.classList.add('user-image__image')
               image.addEventListener('load', function (e) {
                 setTimeout(function () {
                   if (!canvas) {
@@ -148,7 +152,8 @@
                 }, TICK)
               })
 
-					    image.src = reader.result;
+              image.src = reader.result
+              document.getElementById('image-wrapper').appendChild(image)
             }
 
             reader.readAsDataURL(file)
