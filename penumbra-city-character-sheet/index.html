@@ -909,13 +909,19 @@
                 };
             }, [characters]);
 
-            // Auto-save on character changes
+            // Auto-save on character changes with debouncing
             useEffect(() => {
-                if (currentCharacter) {
-                    const timeoutId = setTimeout(() => saveCharacter(currentCharacter), 1000);
+                if (currentCharacter && currentCharacter.id) {
+                    const timeoutId = setTimeout(() => {
+                        // Only save if the character has actually changed
+                        const existingChar = characters.find(c => c.id === currentCharacter.id);
+                        if (existingChar && JSON.stringify(existingChar) !== JSON.stringify(currentCharacter)) {
+                            saveCharacter(currentCharacter);
+                        }
+                    }, 1000);
                     return () => clearTimeout(timeoutId);
                 }
-            }, [currentCharacter]);
+            }, [currentCharacter, characters]);
 
             const updateAbilityScore = (ability, field, value) => {
                 setCurrentCharacter(prev => ({
