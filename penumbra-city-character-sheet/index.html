@@ -126,6 +126,7 @@
         }
         .list-item input {
             flex: 1;
+            /* Global styles now handle the appearance */
         }
         .list-item button {
             background: #d63031;
@@ -139,6 +140,116 @@
         .list-item button:hover {
             background: #b71540;
         }
+        .ability-item {
+            background: #444;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 12px;
+            border: 1px solid #555;
+        }
+        .ability-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .ability-title {
+            flex: 1;
+            font-weight: bold;
+            /* Global styles now handle the appearance */
+        }
+        .ability-description {
+            width: 100%;
+            /* Global styles now handle the appearance */
+        }
+        .remove-btn {
+            background: #d63031;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .remove-btn:hover {
+            background: #b71540;
+        }
+        
+        /* Global input and textarea styling */
+        input, textarea, select {
+            background: #555;
+            border: 1px solid #777;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+            box-sizing: border-box;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+        
+        input::placeholder, textarea::placeholder {
+            color: #aaa;
+        }
+        
+        /* Specific input types */
+        input[type="text"], input[type="number"] {
+            min-height: 36px;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            min-height: auto;
+            cursor: pointer;
+        }
+        
+        input[type="checkbox"]:checked {
+            accent-color: #d4af37;
+        }
+        
+        /* Number inputs */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+            background: #777;
+            border-radius: 2px;
+        }
+        
+        /* Textarea specific */
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+            line-height: 1.4;
+        }
+        
+        /* Select dropdowns */
+        select {
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23d4af37' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+            padding-right: 32px;
+        }
+        
+        /* Override existing specific styles to ensure consistency */
+        .list-item input, .ability-title, .ability-description {
+            background: #555;
+            border: 1px solid #777;
+            color: #fff;
+        }
+        
+        .list-item input:focus, .ability-title:focus, .ability-description:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
         .add-item {
             display: flex;
             gap: 10px;
@@ -146,6 +257,7 @@
         }
         .add-item input {
             flex: 1;
+            /* Global styles now handle the appearance */
         }
         .add-item button {
             background: #00b894;
@@ -251,8 +363,44 @@
             background: #333;
             padding: 20px;
             border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #d4af37;
+        }
+        
+        .about-section {
+            background: #333;
+            padding: 20px;
+            border-radius: 6px;
             margin-bottom: 30px;
             border-left: 4px solid #d4af37;
+        }
+        
+        .about-section h2 {
+            margin: 0 0 15px 0;
+            color: #d4af37;
+            font-size: 1.4em;
+        }
+        
+        .about-section p {
+            margin: 0 0 15px 0;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+        
+        .about-section p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .support-link {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.2s ease;
+        }
+        
+        .support-link:hover {
+            color: #f1c40f;
+            text-decoration: underline;
         }
         
         .character-controls {
@@ -951,6 +1099,29 @@
                 }));
             };
 
+            const addClassAbility = () => {
+                setCurrentCharacter(prev => ({
+                    ...prev,
+                    classAbilities: [...prev.classAbilities, { title: '', description: '' }]
+                }));
+            };
+
+            const updateClassAbility = (index, field, value) => {
+                setCurrentCharacter(prev => ({
+                    ...prev,
+                    classAbilities: prev.classAbilities.map((ability, i) => 
+                        i === index ? { ...ability, [field]: value } : ability
+                    )
+                }));
+            };
+
+            const removeClassAbility = (index) => {
+                setCurrentCharacter(prev => ({
+                    ...prev,
+                    classAbilities: prev.classAbilities.filter((_, i) => i !== index)
+                }));
+            };
+
             const removeListItem = (listName, index) => {
                 setCurrentCharacter(prev => ({
                     ...prev,
@@ -1087,6 +1258,24 @@
                                     </button>
                                 )}
                             </div>
+                        </div>
+
+                        <div className="about-section">
+                            <h2>About</h2>
+                            <p>
+                                This is a character sheet I created to play <em>Penumbra City</em> with my friends. 
+                                I am not affiliated with, nor do I own the trademark to Penumbra City.
+                            </p>
+                            <p>
+                                <strong>Support the creators:</strong>
+                                <br />
+                                <a href="https://www.tangledwilderness.org/shop/p/penumbracitydigitaledition" 
+                                   target="_blank" 
+                                   rel="noopener noreferrer"
+                                   className="support-link">
+                                    Get the official Penumbra City Digital Edition
+                                </a>
+                            </p>
                         </div>
 
 
@@ -1415,22 +1604,28 @@
                         <h2>Class Abilities</h2>
                         <div className="editable-list">
                             {currentCharacter.classAbilities.map((ability, index) => (
-                                <div key={index} className="list-item">
-                                    <input
-                                        type="text"
-                                        value={ability}
-                                        onChange={(e) => {
-                                            const newAbilities = [...currentCharacter.classAbilities];
-                                            newAbilities[index] = e.target.value;
-                                            setCurrentCharacter(prev => ({ ...prev, classAbilities: newAbilities }));
-                                        }}
-                                        placeholder="Enter class ability"
+                                <div key={index} className="ability-item">
+                                    <div className="ability-header">
+                                        <input
+                                            type="text"
+                                            value={ability.title || ''}
+                                            onChange={(e) => updateClassAbility(index, 'title', e.target.value)}
+                                            placeholder="Ability title"
+                                            className="ability-title"
+                                        />
+                                        <button onClick={() => removeClassAbility(index)} className="remove-btn">Remove</button>
+                                    </div>
+                                    <textarea
+                                        value={ability.description || ''}
+                                        onChange={(e) => updateClassAbility(index, 'description', e.target.value)}
+                                        placeholder="Ability description"
+                                        className="ability-description"
+                                        rows="3"
                                     />
-                                    <button onClick={() => removeListItem('classAbilities', index)}>Remove</button>
                                 </div>
                             ))}
                             <div className="add-item">
-                                <button onClick={() => addListItem('classAbilities', '')}>Add Class Ability</button>
+                                <button onClick={addClassAbility}>Add Class Ability</button>
                             </div>
                         </div>
                     </div>
