@@ -654,7 +654,7 @@
                 }
             };
 
-            const createNewCharacter = () => {
+            const createNewCharacter = async () => {
                 console.log('Creating new character...');
                 const newChar = {
                     name: '',
@@ -683,12 +683,40 @@
                     },
                     reputation: { bulwark: 0, reasonable: 0, revolutionists: 0 }
                 };
-                console.log('Setting current character and view...');
-                setCurrentCharacter(newChar);
-                setCurrentView('character');
-                console.log('Updating hash...');
-                window.location.hash = 'character/new';
-                console.log('New character creation complete');
+                
+                try {
+                    const db = await initDB();
+                    const transaction = db.transaction([STORE_NAME], 'readwrite');
+                    const store = transaction.objectStore(STORE_NAME);
+                    
+                    const request = store.add(newChar);
+                    request.onsuccess = () => {
+                        const newId = request.result;
+                        console.log('Character created with ID:', newId);
+                        const savedCharacter = { ...newChar, id: newId };
+                        
+                        // Add to characters list
+                        setCharacters(prev => [...prev, savedCharacter]);
+                        
+                        // Navigate to the new character
+                        setCurrentCharacter(savedCharacter);
+                        setCurrentView('character');
+                        window.location.hash = `character/${newId}`;
+                        
+                        setSaveStatus('New character created!');
+                        setTimeout(() => setSaveStatus(''), 2000);
+                    };
+                    
+                    request.onerror = () => {
+                        console.error('Error creating character:', request.error);
+                        setSaveStatus('Error creating character!');
+                        setTimeout(() => setSaveStatus(''), 3000);
+                    };
+                } catch (error) {
+                    console.error('Error creating character:', error);
+                    setSaveStatus('Error creating character!');
+                    setTimeout(() => setSaveStatus(''), 3000);
+                }
             };
 
             const openCharacter = (char) => {
